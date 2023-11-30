@@ -14,7 +14,7 @@ pipeline{
                         path: '',
                         url: 'http://192.168.0.102:8082/')],
                         contextPath: '/Orderservice',
-                        war: '**/Orderservice'
+                        war: '**/Orderservice.war'
                     }
                 }
     }
