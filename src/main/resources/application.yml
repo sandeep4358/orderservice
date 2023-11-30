@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /order-service
+    context-path: /Orderservice
 #server:
 #  port: 9001
 spring:
@@ -27,7 +27,7 @@ management:
 
 logging:
   charset:
-    file: /opt/tomcat/logs/order-service.log
+    file: /opt/tomcat/logs/Orderservice.log
   level:
     org.springframework.orm.jpa: DEBUG
     org.springframework.transaction: DEBUG
