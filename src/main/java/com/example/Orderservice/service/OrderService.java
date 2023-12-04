@@ -24,7 +24,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final WebClient.Builder webClientBuilder;
+    private final WebClient webClient;
 
 //    // http://localhost:8082/api/inventory?skuCode=iphone-13&skuCode=iphone13-red
     public void placeOrder(OrderRequest orderRequest) {
@@ -42,19 +42,21 @@ public class OrderService {
 
         //call Inventory Service, and place order if product is in stock.
 
-        InventoryResponse[] inventoryResponsArray =  webClientBuilder.build().get()
-                                  .uri("http://localhost:8083/api/inventory",
-                                          uriBuilder -> uriBuilder.queryParam("skuCode",skuCodelist).build())
-                                    .retrieve().bodyToMono(InventoryResponse[].class)
-                                        .block();
-        boolean allProductInStock = Arrays.stream(inventoryResponsArray).allMatch(InventoryResponse::isInStock);
+        InventoryResponse[] inventoryResponsArray = webClient.get()
+                .uri("http://192.168.0.102:8026/inventory-service/api/inventory/isInStock",
+                        uriBuilder -> uriBuilder.queryParam("skuCode", skuCodelist).build())
+                .retrieve().bodyToMono(InventoryResponse[].class)
+                .block();
 
+
+       boolean allProductInStock = Arrays.stream(inventoryResponsArray)
+               .allMatch(InventoryResponse::isInStock);
+        log.info("Response from the inventory service is :: {} ",allProductInStock);
        if(allProductInStock){
            orderRepository.save(order);
        }else{
            throw  new IllegalArgumentException("Product is not in stock, please try again later");
        }
-
     }
 
     private OrderLineItems mapToDto(OrderLineItemsDto orderLineItemsDto) {

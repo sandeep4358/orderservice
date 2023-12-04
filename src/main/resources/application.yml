@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /order-service
-  port: 8082
+  #port: 8082
 
 spring:
   application:
@@ -29,7 +29,7 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.0.100:8761/eureka
+      defaultZone: http://192.168.0.101:8761/eureka
     instance:
     preferIpAddress: true
 

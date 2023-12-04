@@ -1,27 +1,32 @@
 pipeline{
     agent any
     stages{
-        stage('checkout'){
+        stage('SCM'){
             steps{
-                echo 'checkout!!!!!'
-                sh 'mvn -DskipTests clean package'
+                echo ' getting code from the git repository'
+                git changelog: false, poll: false, url: 'https://github.com/sandeep4358/orderservice.git'
             }
         }
-        stage('Test'){
-                    steps{
-                        echo 'Test'
-                        sh 'mvn test'
+
+
+    stage('Maven Build'){
+                steps{
+                    sh 'mvn clean install'
+                }
+            }
+
+     stage('Docker Build'){
+                steps{
+                    echo 'Docker build'
+                    script{
+                         withDockerRegistry(credentialsId: 'a77c722e-a2ea-45c3-b4e3-6100d91bcb67') {
+                                                 // some block
+                                                 sh 'docker image build -t sandeep022/orderservice:tage234 .'
+                                                 sh 'docker push sandeep022/orderservice:tage234'
+                                             }
                     }
                 }
-        stage('Build'){
-                    steps{
-                        echo 'Build!!!!!'
-                        deploy adapters: [tomcat9(credentialsId: 'd9f55980-a94e-4f7d-96f3-d3ec495ac706',
-                        path: '',
-                        url: 'http://192.168.0.102:8082')],
-                        contextPath: '/order-service',
-                        war: '**/order-service.war'
-                    }
-                }
-    }
+		}
+
+}
 }

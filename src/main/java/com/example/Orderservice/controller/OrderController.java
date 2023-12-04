@@ -15,11 +15,12 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @PostMapping
+    @PostMapping("/placeOrderOf")
     @ResponseStatus(HttpStatus.CREATED)
     public String placeOrder(@RequestBody OrderRequest orderRequest) {
         log.info("Placing Order");
         orderService.placeOrder(orderRequest);
+        log.info("Sending Order Details with Order Id {} to Notification Service");
         return "Order placed successfully." ;
     }
 
