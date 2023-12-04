@@ -1,3 +1,4 @@
+##chanes added
 server:
   servlet:
     context-path: /order-service
@@ -16,21 +17,12 @@ spring:
       ddl-auto: update
     show-sql: true
 #----------------below logging will activate the jpa transactional log
-#actuator endpoint managemnet
-management:
-  endpoint:
-    shutdown:
-      enabled: true
-    beans:
-      enabled: true
-    env:
-      enabled: true
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://192.168.0.101:8761/eureka
-    instance:
+  instance:
     preferIpAddress: true
 
 logging:
