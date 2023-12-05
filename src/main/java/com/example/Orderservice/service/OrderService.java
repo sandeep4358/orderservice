@@ -45,7 +45,8 @@ public class OrderService {
         //call Inventory Service, and place order if product is in stock.
 
         InventoryResponse[] inventoryResponsArray = webClientBuilder.build().get()
-                .uri("http://192.168.0.102:8026/inventory-service/api/inventory/isInStock",
+                //.uri("http://192.168.0.102:8026/inventory-service/api/inventory/isInStock", //comment for using eureka registory for the service
+                .uri("http://inventory-service/api/inventory/isInStock",  // this uri is the eureka service registry uri; i amnot using any ip just the service name.
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodelist).build())
                 .retrieve().bodyToMono(InventoryResponse[].class)
                 .block();
