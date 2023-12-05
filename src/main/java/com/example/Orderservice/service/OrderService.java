@@ -8,6 +8,7 @@ import com.example.Orderservice.model.OrderLineItems;
 import com.example.Orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -24,7 +25,8 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final WebClient webClient;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
 //    // http://localhost:8082/api/inventory?skuCode=iphone-13&skuCode=iphone13-red
     public void placeOrder(OrderRequest orderRequest) {
@@ -42,7 +44,7 @@ public class OrderService {
 
         //call Inventory Service, and place order if product is in stock.
 
-        InventoryResponse[] inventoryResponsArray = webClient.get()
+        InventoryResponse[] inventoryResponsArray = webClientBuilder.build().get()
                 .uri("http://192.168.0.102:8026/inventory-service/api/inventory/isInStock",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodelist).build())
                 .retrieve().bodyToMono(InventoryResponse[].class)

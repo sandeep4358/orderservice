@@ -19,11 +19,16 @@ spring:
 #----------------below logging will activate the jpa transactional log
 
 eureka:
+  instance:
+    # Necessary for Docker as it doesn't have DNS entries
+    prefer-ip-address: true
+    # Necessary for Docker otherwise you will get 172.0.0.x IP
+    ip-address: "${HOST}"
   client:
     serviceUrl:
-      defaultZone: http://192.168.0.101:8761/eureka
-  instance:
-    preferIpAddress: true
+      # Location of your eureka server
+      defaultZone: http://192.168.0.101:8761/eureka/
+
 
 logging:
   charset:
