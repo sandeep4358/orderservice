@@ -2,7 +2,14 @@
 server:
   servlet:
     context-path: /order-service
-  #port: 8082
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  true
+        exclude: threaddump
 
 spring:
   application:
