@@ -1,3 +1,4 @@
+//pipline with the run build command is added
 pipeline{
     agent any
     stages{
