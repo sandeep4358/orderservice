@@ -12,7 +12,13 @@
                 <pattern>
                     <pattern>
                         {
-                        "appName": "order-service"
+                        "appVersion": "${build.version}",
+                        "appName": "${build.artifact}",
+                        "resourceType": "${logback.application.resource.type}",
+                        "resourceID": "${logback.application.resource.id}",
+                        "level": "%level",
+                        "hostname": "${logback.server.host}",
+                        "indexType": "${logback.logstash.index.type}"
                         }
                     </pattern>
                 </pattern>
