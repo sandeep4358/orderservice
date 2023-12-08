@@ -21,9 +21,22 @@ pipeline{
                     script{
                          withDockerRegistry(credentialsId: 'a77c722e-a2ea-45c3-b4e3-6100d91bcb67') {
                                                  // some block
-                                                 sh 'docker image build -t sandeep022/orderservice:tage234 .'
-                                                 sh 'docker push sandeep022/orderservice:tage234'
+                                                 sh 'docker image build -t sandeep022/orderservice:${BUILD_NUMBER} .'
+                                                 sh 'docker push sandeep022/orderservice:${BUILD_NUMBER}'
                                              }
+                    }
+                }
+		}
+
+		stage('Docker Image Run '){
+                steps{
+                    echo 'Image Run'
+                    script{
+                                                 // some block
+												 //sh 'docker container rm -f orderservice'
+
+                                                 sh 'docker run -dit --name orderservice${BUILD_NUMBER} -p 8081:8080 sandeep022/orderservice:${BUILD_NUMBER} .'
+
                     }
                 }
 		}
