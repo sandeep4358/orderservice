@@ -19,8 +19,8 @@ public class PricingPlanService {
 
     private Bucket newBucket(String apiKey) {
         PricingPlan pricingPlan = PricingPlan.resolvePlanFromApiKey(apiKey);
-        return Bucket.builder()
-                .addLimit(Bandwidth.classic(5, Refill.intervally(2, Duration.ofMinutes(1))))
+        return Bucket.builder().addLimit(pricingPlan.getLimit())
+                //.addLimit(Bandwidth.classic(5, Refill.intervally(2, Duration.ofMinutes(1))))
                 .build();
     }
 }

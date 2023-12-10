@@ -7,17 +7,20 @@ import java.time.Duration;
 
 public enum PricingPlan {
     FREE {
-         Bandwidth getLimit() {
+        @Override
+        public Bandwidth getLimit() {
             return Bandwidth.classic(20, Refill.intervally(20, Duration.ofHours(1)));
         }
     },
     BASIC {
-         Bandwidth getLimit() {
+        @Override
+        public Bandwidth getLimit() {
             return Bandwidth.classic(40, Refill.intervally(40, Duration.ofHours(1)));
         }
     },
     PROFESSIONAL {
-         Bandwidth getLimit() {
+        @Override
+        public Bandwidth getLimit() {
             return Bandwidth.classic(100, Refill.intervally(100, Duration.ofHours(1)));
         }
     };
@@ -32,5 +35,7 @@ public enum PricingPlan {
         return FREE;
     }
 
+
+    public abstract Bandwidth getLimit();
 
 }
