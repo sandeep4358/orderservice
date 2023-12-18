@@ -27,7 +27,7 @@ public class OrderController {
     @GetMapping("/test")
     public String test(){
         log.info("inside the test method");
-        return "order service hit successfully";
+        return "order service hit successfully.";
     }
 
 }
