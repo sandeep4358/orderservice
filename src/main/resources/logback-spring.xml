@@ -10,7 +10,6 @@
                 <logLevel />
                 <loggerName />
                 <pattern>
-                    <pattern>
                         {
                         "appVersion": "${build.version}",
                         "appName": "${build.artifact}",
@@ -20,7 +19,6 @@
                         "hostname": "${logback.server.host}",
                         "indexType": "${logback.logstash.index.type}"
                         }
-                    </pattern>
                 </pattern>
                 <threadName />
                 <message />
