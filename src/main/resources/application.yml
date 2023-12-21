@@ -19,11 +19,6 @@ management:
 
 
 spring:
-  sleuth:
-    sampler:
-      probability: 1.0
-  zipkin:
-    base-url: http://192.168.0.102:9411/
   application:
     name: order-service
   datasource:
@@ -42,7 +37,7 @@ eureka:
     # Necessary for Docker as it doesn't have DNS entries
     prefer-ip-address: true
     # Necessary for Docker otherwise you will get 172.0.0.x IP
-    ip-address: 192.168.0.102
+    ip-address: 192.168.0.101
     #"${HOST}"
   client:
     serviceUrl:
@@ -52,6 +47,17 @@ eureka:
 # Zipkin configuration
 
 
+#Resilieance4j
+resilience4j.circuitbreaker:
+  instances:
+    orderservice:
+      registerHealthIndicator: true
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 10
+      failureRateThreshold: 50
+      waitDurationInOpenState: 5s
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
 
 logging:
   pattern:
