@@ -10,6 +10,13 @@ management:
       exposure:
         include:  true
         exclude: threaddump
+  tracing:
+    sampling:
+      probability: 1.0 # only for testing purpose, switch back to 0.1 for production code
+  zipkin:
+    tracing:
+      endpoint: http://192.168.0.102:9411/api/v2/spans
+
 
 spring:
   sleuth:
@@ -47,6 +54,8 @@ eureka:
 
 
 logging:
+  pattern:
+    level: '%5p [${spring.application.name}, %X{traceId}, %X{spanId}]'
   charset:
     file: /opt/tomcat/logs/Orderservice.log
   level:
