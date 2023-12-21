@@ -12,6 +12,11 @@ management:
         exclude: threaddump
 
 spring:
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://192.168.0.101:9411/
   application:
     name: order-service
   datasource:
@@ -36,6 +41,9 @@ eureka:
     serviceUrl:
       # Location of your eureka server
       defaultZone: http://192.168.0.101:8761/eureka/
+
+# Zipkin configuration
+
 
 
 logging:
