@@ -23,7 +23,9 @@ pipeline{
                          withDockerRegistry(credentialsId: 'a77c722e-a2ea-45c3-b4e3-6100d91bcb67') {
                                                  // some block
                                                  sh 'docker image build -t sandeep022/orderservice:${BUILD_NUMBER} .'
-                                                 sh 'docker push sandeep022/orderservice:${BUILD_NUMBER}'
+                                              //for a time being as it push to docker hub take time I am commenting that
+
+                                              //  sh 'docker push sandeep022/orderservice:${BUILD_NUMBER}'
                                              }
                     }
                 }
