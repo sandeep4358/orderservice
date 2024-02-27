@@ -2,6 +2,7 @@ package com.example.Orderservice.service;
 
 import com.example.Orderservice.dto.InventoryResponse;
 import com.example.Orderservice.dto.OrderLineItemsDto;
+import com.example.Orderservice.dto.OrderNotificationEvent;
 import com.example.Orderservice.dto.OrderRequest;
 import com.example.Orderservice.model.Order;
 import com.example.Orderservice.model.OrderLineItems;
@@ -9,6 +10,7 @@ import com.example.Orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -24,6 +26,8 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+
+  //  private final KafkaTemplate<String,Object> kafkaTemplate ;
 
     @Autowired
     private WebClient.Builder webClientBuilder;
@@ -57,6 +61,9 @@ public class OrderService {
         log.info("Response from the inventory service is :: {} ",allProductInStock);
        if(allProductInStock){
            orderRepository.save(order);
+            //notification sent to the notification server
+           //kafkaTemplate.send("orderNotification",OrderNotificationEvent.builder().orderId(order.getOrderNumber()).build());
+
        }else{
            throw  new IllegalArgumentException("Product is not in stock, please try again later");
        }
@@ -67,6 +74,9 @@ public class OrderService {
         orderLineItems.setPrice(orderLineItemsDto.getPrice());
         orderLineItems.setQuantity(orderLineItemsDto.getQuantity());
         orderLineItems.setSkuCode(orderLineItemsDto.getSkuCode());
+
+       // OrderLineItems.builder().price()n
+
         return orderLineItems;
     }
 }

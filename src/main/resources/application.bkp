@@ -4,6 +4,8 @@ server:
     context-path: /order-service
   port: 8081
 
+
+
 management:
   endpoints:
     web:
@@ -22,34 +24,31 @@ spring:
   application:
     name: order-service
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/microservices
-    username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:root}
+    url: jdbc:mysql://192.168.0.102:3306/microservices
+    username: sandeep
+    password: sandeep
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-#  kafka:
-#    bootstrap-servers:
-#      - http://192.168.0.102:9092
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer;
-#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer;
+  cloud:
+    config:
+      uri:
+        -
 #----------------below logging will activate the jpa transactional log
 
 eureka:
   instance:
-#    # Necessary for Docker as it doesn't have DNS entries
-#    prefer-ip-address: true
-#    # Necessary for Docker otherwise you will get 172.0.0.x IP
-#    ip-address: 192.168.0.101
-#    #"${HOST}"
+    # Necessary for Docker as it doesn't have DNS entries
+    prefer-ip-address: true
+    # Necessary for Docker otherwise you will get 172.0.0.x IP
+    ip-address: 192.168.0.101
+    #"${HOST}"
   client:
     serviceUrl:
       # Location of your eureka server
-      defaultZone: http://serviceregistory:8761/eureka
+      defaultZone: http://192.168.0.101:8761/eureka/
 
 # Zipkin configuration
 
@@ -74,4 +73,3 @@ logging:
   level:
     org.springframework.orm.jpa: DEBUG
     org.springframework.transaction: DEBUG
-

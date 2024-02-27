@@ -11,6 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 public class OrderserviceApplication extends SpringBootServletInitializer {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(OrderserviceApplication.class, args);
 	}
