@@ -44,13 +44,13 @@ public class OrderService {
 
         order.setOrderLineItemsList(orderLineItems);
 
-        List<String >  skuCodelist = order.getOrderLineItemsList().stream().map(OrderLineItems::getSkuCode).toList();
+        List<String>  skuCodelist = order.getOrderLineItemsList().stream().map(OrderLineItems::getSkuCode).toList();
 
         //call Inventory Service, and place order if product is in stock.
 
         InventoryResponse[] inventoryResponsArray = webClientBuilder.build().get()
                 //.uri("http://192.168.0.102:8026/inventory-service/api/inventory/isInStock", //comment for using eureka registory for the service
-                .uri("http://inventory-service/inventory-service/api/inventory/isInStock",  // this uri is the eureka service registry uri; i amnot using any ip just the service name.
+                .uri("http://inventory-service/api/inventory/isInStock",  // this uri is the eureka service registry uri; i am not using any ip just the service name.
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodelist).build())
                 .retrieve().bodyToMono(InventoryResponse[].class)
                 .block();

@@ -26,6 +26,14 @@ public class OrderController {
         return "Order placed successfully." ;
     }
 
+    @PostMapping("/addOrder")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String addOrder(@RequestBody OrderRequest orderRequest) {
+        log.info("Placing Order");
+        orderService.placeOrder(orderRequest);
+        log.info("Sending Order Details with Order Id {} to Notification Service");
+        return "Order placed successfully." ;
+    }
     @GetMapping("/test")
     public String test(){
         log.info("inside the test method");

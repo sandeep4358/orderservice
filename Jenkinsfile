@@ -31,18 +31,7 @@ pipeline{
                 }
 		}
 
-		stage('Docker Image Run '){
-                steps{
-                    echo 'Image Run'
-                    script{
-                                                 // some block
-												 //sh 'docker container rm -f orderservice'
 
-                                                 sh 'docker run -dit --name orderservice${BUILD_NUMBER} -p 8081:8080 sandeep022/orderservice:${BUILD_NUMBER}'
-
-                    }
-                }
-		}
 
 }
 
