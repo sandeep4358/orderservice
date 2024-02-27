@@ -1,14 +1,8 @@
-FROM tomcat:10.1.16-jdk17-temurin-jammy
+# Use Amazon Corretto 17 with Alpine Linux as the base image
+FROM amazoncorretto:17.0.0-alpine
 
-MAINTAINER "SANDEEP KUMAR"
+# Copy the JAR file(s) from the target directory into the image
+ADD target/*.jar app.jar
 
-#delte all the file inside the webapps folder(in the latest tomcat we are already deleted but just in case)
-#RUN     rm -rf /user/local/tomcat/webapps/*
-
-#now copy your project in that folder
-COPY ./target/order-service.war /usr/local/tomcat/webapps/order-service.war
-
-
-EXPOSE 8080
-
-CMD ["catalina.sh", "run"]
+# Set the default command to run the Java application when the container starts
+ENTRYPOINT ["java", "-jar", "app.jar"]
